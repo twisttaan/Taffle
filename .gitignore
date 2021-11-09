@@ -2,6 +2,9 @@
 *.pyc
 *.swp
 
+# Configs
+config.ts
+
 /.cargo_home/
 /.idea/
 /.vscode/
