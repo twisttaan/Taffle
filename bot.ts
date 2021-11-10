@@ -109,6 +109,70 @@ class MyClient extends CommandClient {
       `This server has ${ctx.guild?.premiumSubscriptionCount} boosts`
     );
   }
+
+  // send the amount of covid cases
+  @command({ aliases: "covid" })
+  async Covid(ctx: CommandContext): Promise<void> {
+    const response = await fetch("https://covid19.mathdro.id/api");
+    const json = response.json();
+    json.then((data: { confirmed: { value: number } }) => {
+      const confirmedFormatted = new Intl.NumberFormat("en-US").format(
+        data.confirmed.value
+      );
+      ctx.message.channel.send(
+        `There are ${confirmedFormatted} confirmed cases`
+      );
+    });
+  }
+
+  // send a rocket to space
+  @command({ aliases: "rocket" })
+  Rocket(ctx: CommandContext): void {
+    ctx.message.channel.send("🚀");
+  }
+
+  // send a random picture of a goose
+  @command({ aliases: "goose" })
+  async Goose(ctx: CommandContext): Promise<void> {
+    const response = await fetch("https://random-d.uk/api/v1/random");
+    const json = response.json();
+    json.then((data: { url: string }) => {
+      ctx.message.channel.send(data.url);
+    });
+  }
+
+  // say a random your mom joke
+  @command({ aliases: "joke" })
+  async Joke(ctx: CommandContext): Promise<void> {
+    const response = await fetch("https://icanhazdadjoke.com/", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    const json = response.json();
+    json.then((data: { joke: string }) => {
+      ctx.message.channel.send(data.joke);
+    });
+  }
+
+  // spam the current channel with emojis
+  @command({ aliases: "emojis" })
+  Emojis(ctx: CommandContext): void {
+    const emojis = ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨"];
+    emojis.forEach((emoji) => {
+      ctx.message.channel.send(emoji);
+    });
+  }
+
+  // send random cctv footage
+  @command({ aliases: "cctv" })
+  async Cctv(ctx: CommandContext): Promise<void> {
+    const response = await fetch("https://random.dog/woof.json");
+    const json = response.json();
+    json.then((data: { url: string }) => {
+      ctx.message.channel.send(data.url);
+    });
+  }
 }
 
 new MyClient().connect(config.config.token, [
