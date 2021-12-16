@@ -165,7 +165,7 @@ class MyClient extends CommandClient {
   }
 
   // send random cctv footage
-  @command({ aliases: "cctv" })
+  @command({ aliases: "cctv" }) // this was me testing copilot as i just got it, and was testing what random apis i could find
   async Cctv(ctx: CommandContext): Promise<void> {
     const response = await fetch("https://random.dog/woof.json");
     const json = response.json();
